@@ -6,7 +6,7 @@ import helper
 app = Flask(__name__)
 
 #Submit Filter Form
-@app.route("/", methods=["GET"])
+@app.route("https://tool-tf-idf.herokuapp.com/", methods=["GET"])
 def action_html_form():
     if request.method == 'GET':
         # start Get Data
