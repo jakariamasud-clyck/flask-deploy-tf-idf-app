@@ -2,7 +2,7 @@ import math
 import get_stopwords
 from rake_nltk import Rake
 import re
-# nltk.download('stopwords')
+nltk.download('stopwords')
 from nltk import sent_tokenize, word_tokenize, PorterStemmer
 from nltk.corpus import stopwords
 
