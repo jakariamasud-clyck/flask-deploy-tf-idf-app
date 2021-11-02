@@ -29,4 +29,5 @@ def action_html_form():
 
 
 #App Run
-
+if __name__ == "__main__":
+    app.run()
