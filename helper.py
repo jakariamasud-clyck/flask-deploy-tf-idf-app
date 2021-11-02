@@ -19,7 +19,7 @@ class Helper:
     def httpRequest(self, endPoint, apiKey, otherPram='', rqType='GET', datas={}):
         if(not endPoint):
             return
-        self.endPoint = f"https://app.zenserp.com/api/v2/{endPoint}?"
+        self.endPoint = f"//app.zenserp.com/api/v2/{endPoint}?"
         self.otherPram = f"&{otherPram}" if otherPram else ""
         self.apiKey = apiKey if apiKey else "9cbfb3c0-fdc8-11eb-865b-5b6962f86cb2"
         self.apiKey = f"apikey={self.apiKey}"
