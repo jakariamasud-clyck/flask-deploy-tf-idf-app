@@ -1,0 +1,13 @@
+{% macro select(name, id, label_text='',title='', value='', required=false, endpoint='') -%}
+<label for="{{ id }}"><span>{{ label_text }}</span><i data-toggle="tooltip" data-placement="top"
+        title="{{ title }}" class="fa fa-info-circle"></i></label>
+<select 
+id="{{ id }}" 
+name="{{ name }}" 
+class="form-control" 
+data-endpoint="{{ endpoint }}"
+>
+    <option value="{{ value }}">
+        {{ value }}</option>
+</select>
+{%- endmacro %}

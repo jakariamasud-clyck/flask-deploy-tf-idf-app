@@ -1,0 +1,34 @@
+<!-- Tab Content Item Start \-->
+<div id="sentenceScores" role="tabpanel" class="tab-pane fade">
+    
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Sentence</th>
+                <th scope="col">Scores</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% set scoreLists = [] %}
+            {% for stoVal in searchResults %}
+                {% if stoVal.url %}
+                    
+                    {% set sentence_scores = results.get_results(stoVal.url,'sentence_scores')  %}
+                        {% if sentence_scores  %}
+                            {% for sckey, scVal in sentence_scores.items() %}
+                            {% if sckey not in scoreLists and sckey %}
+                                <tr class="tbl-row">
+                                    <td>{{ sckey }}</td>
+                                    <td>{{ scVal }}</td>
+                                </tr>
+                            {% endif %}
+                            {% set scoreLists = scoreLists.append(sckey) %}
+                            {% endfor %}
+                        {% endif %}
+                {% endif %}
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div><!-- Tab Content Item End /-->

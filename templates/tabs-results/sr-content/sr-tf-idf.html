@@ -1,0 +1,28 @@
+
+<td class="srTfIdfArea">
+	<div class="table-responsive srTfIdfInner">
+		{% set all_results = results.get_results(url)  %}
+		{% if all_results  %}
+
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th scope="col">Keyword</th>
+						<th scope="col">TF*IDF</th>
+						<th scope="col">TF</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for tKey, tVal in all_results.items() %}
+					<tr>
+						<td>{{ tKey }}</td>
+						<td>{{ tVal.tfidf }}</td>
+						<td>{{ tVal.tf }}</td>
+					</tr>
+					{% endfor %}
+					
+				</tbody>
+			</table>
+		{% endif %}
+	</div>
+</td>

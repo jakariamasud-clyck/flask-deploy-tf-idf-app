@@ -1,0 +1,27 @@
+{% if searchResults %}
+<!-- Tab Data Display Start \-->
+<div class="mda-mt-30 mda-sfArea-box container">
+    <!-- Tab Nav Start \-->
+
+    <ul id="md_tabNav" role="tablist" class="nav nav-tabs">
+        <li class="nav-item"><a class="nav-link active" href="#searchResults" aria-controls="searchResults" role="tab"
+                data-toggle="tab">Search results</a></li>
+        <li class="nav-item"><a class="nav-link" href="#tableOfValues" aria-controls="tableOfValues" role="tab"
+                data-toggle="tab">Totel of values</a></li>
+        <li class="nav-item"><a class="nav-link" href="#sentenceScores" aria-controls="sentenceScores" role="tab"
+        data-toggle="tab">Sentences Scores</a></li>
+        <li class="nav-item"><a class="nav-link" href="#textsSummary" aria-controls="textsSummary" role="tab"
+                data-toggle="tab">Texts Summary</a></li>
+    </ul><!-- Tab Nav End /-->
+
+    <!-- Tab Content Start \-->
+    <div class="mda-tabContent">
+        <div class="tab-content search_resultsArea">
+            {% include './tabs-results/search-results.html' %}
+            {% include './tabs-results/table-of-values.html' %}
+            {% include './tabs-results/sentence-scores.html' %}
+            {% include './tabs-results/text-summary.html' %}
+        </div>
+    </div><!-- Tab Content End /-->
+</div><!-- Row End /-->
+{% endif %}

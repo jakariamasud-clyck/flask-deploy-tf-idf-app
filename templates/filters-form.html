@@ -1,0 +1,227 @@
+{% import './form-fields/input.html' as forms %}
+{% import './form-fields/select.html' as formSelect %}
+<form action="/" method="get">
+    <div class="mda-searchFilterArea">
+        <div class="mda-sfArea-box container">
+            <!-- Row Start \-->
+            <div class="row mda-sf-row">
+                <!-- Col Start \-->
+                <div class="col-md-9">
+                    <div class="mda-keyword-field">
+                        {{ forms.input(
+                            'q',
+                            'mda_keyword',
+                            label_text='Search Query',
+                            class='mr-3 form-control',
+                            title= 'keyword to query, search operators allowed',
+                            value= requestArgs.get('q',''),
+                            type= 'text',
+                            required=true,
+                            btn=true,
+                         )}}
+
+                    </div>
+                </div><!-- Col End /-->
+
+                <!-- Col Start \-->
+                <div class="col-md-3">
+                    <div class="text-center mda-device-field">
+                        <label class="mb-0">Device
+                            <i data-toggle="tooltip" data-placement="top" title="device to use - desktop or mobile"
+                                class="fa fa-info-circle"></i></label>
+                            {% set device = requestArgs.get('device') %}
+                            {% set actMobile = 'active' if ('mobile' == device ) else '' %}
+                            {% set actDesktop = 'active' if ('desktop' == device ) else 'active' %}
+                        <div class="mda-sf-item"><i class="{{ actMobile }} fa fa-mobile" data-device="mobile"></i> <i
+                                class="{{ actDesktop }} fa fa-desktop" data-device="desktop"></i></div>
+                        <input id="mda_device" name="device" type="hidden"
+                            value="{{ requestArgs.get('device','desktop') }}">
+                    </div>
+                </div><!-- Col End /-->
+            </div> <!-- Row End /-->
+            {% set isActive = 'active' if (requestArgs.get('advo') == 'active') else '' %}
+            <!-- AO Btn Start \-->
+            <div class="{{ isActive }} triggerAdvance-btn">
+                Advanced Options
+                <input id="mda_advo" name="advo" type="hidden" value="{{ requestArgs.get('advo') }}">
+            </div>
+            <!--AO Btn End /-->
+            <div class="mda-emptySpace"></div>
+
+            <!-- Advanced Options Start \-->
+            <div class="{{ isActive }} mda-filterAdvance">
+                <!-- Row Start \-->
+                <div class="row mda-sf-row">
+                    <!-- Col Start \-->
+                    <div class="col-md-6">
+                        <div class="mda-sf-item">
+                            <div class="mda-url-field">
+                                {{ forms.input(
+                                    'url',
+                                    'mda_url',
+                                    class='form-control',
+                                    label_text='Url (optional)',
+                                    title= 'Custom Url',
+                                    value= requestArgs.get('url',''),
+                                    type= 'url'
+                                )}}
+
+                            </div>
+                        </div>
+                    </div><!-- Col End /-->
+
+                    <!-- Col Start \-->
+                    <div class="col-md-6">
+                        <div class="mda-sf-item">
+                            <div class="mda-search_engine-field">
+                                {{ formSelect.select(
+                                    'search_engine',
+                                    'mda_search_engine',
+                                    label_text='Search Engine Domain',
+                                    title= 'url of the search engine to query',
+                                    value= requestArgs.get('search_engine','google.com'),
+                                    required= false,
+                                    endpoint= 'search_engines?apikey=',
+                                )}}
+                            </div>
+                        </div>
+                    </div><!-- Col End /-->
+
+                </div><!-- Row End /-->
+
+                <!-- Row Start \-->
+                <div class="row mda-sf-row">
+                    <!-- Col Start \-->
+                    <div class="col-md-6">
+                        <div class="mda-sf-item">
+                            <div class="mda-search_country-field">
+                                {{ forms.input(
+                                    'gl',
+                                    'mda_search_country',
+                                    class='autocomplete form-control',
+                                    label_text='Country',
+                                    title= 'country code, autodetected from the search_engine if not supplied',
+                                    value= requestArgs.get('gl',''),
+                                    type='text',
+                                    required=false, 
+                                    btn=false, 
+                                    endpoint='gl?apikey=',
+                                )}}
+
+                            </div>
+                        </div>
+                    </div><!-- Col End /-->
+                    <!-- Col Start \-->
+                    <div class="col-md-6">
+                        <div class="mda-sf-item">
+                            <div class="mda-search_location-field">
+
+                                {{ forms.input(
+                                    'location',
+                                    'mda_search_location',
+                                    class='autocomplete form-control',
+                                    label_text='Location',
+                                    title= 'geolocation used in the query - Important: Especially when scraping Ads,
+                                    make sure to set this parameter and stick to the right format. Can also contain uule
+                                    value',
+                                    value= requestArgs.get('location',''),
+                                    type='text',
+                                    required=false,
+                                    btn=false,
+                                    endpoint='locations?apikey=',
+                                )}}
+
+                            </div>
+                        </div>
+                    </div><!-- Col End /-->
+                </div><!-- Row End /-->
+
+
+                <!-- Row Start \-->
+                <div class="row mda-sf-row">
+                    <!-- Col Start \-->
+                    <div class="col-md-6">
+                        <div class="mda-sf-item">
+                            <div class="mda-num_page-field">
+
+                                {{ forms.input(
+                                    'num',
+                                    'mda_num_page',
+                                    class='form-control',
+                                    label_text='Results per Page',
+                                    title= 'number of search results. Values can be 1 - 100',
+                                    value= requestArgs.get('num',10),
+                                    type= 'number',
+                                    required=false, 
+                                    btn=false, 
+                                    endpoint='',
+                                    hasmin="1",
+                                    hasmax="100"
+                                    
+                                )}}
+                            </div>
+                        </div>
+                    </div><!-- Col End /-->
+
+                    <!-- Col Start \-->
+                    <div class="col-md-6">
+                        <div class="mda-sf-item">
+                            <div class="mda-language-field">
+                                {{ forms.input(
+                                    'hl',
+                                    'mda_language',
+                                    class='autocomplete form-control',
+                                    label_text='Language',
+                                    title= 'web interface language, autodetected from the',
+                                    value= requestArgs.get('hl',''),
+                                    type='text',
+                                    required=false,
+                                    btn=false,
+                                    endpoint='hl?apikey=',
+                                )}}
+                            </div>
+                        </div>
+                    </div><!-- Col End /-->
+                </div><!-- Row End /-->
+
+                <!-- Row Start \-->
+                <div class="row mda-sf-row">
+                    <!-- Col Start \-->
+                    <div class="col-md-6">
+                        <div class="mda-sf-item">
+                            <div class="mda-lat-field">
+                                {{ forms.input(
+                                    'lat',
+                                    'mda_lat',
+                                    class='form-control',
+                                    label_text='Latitude',
+                                    title= 'latitude of a geolocation used in the query',
+                                    value= requestArgs.get('lat',''),
+                                )}}
+
+                            </div>
+                        </div>
+                    </div><!-- Col End /-->
+
+                    <!-- Col Start \-->
+                    <div class="col-md-6">
+                        <div class="mda-sf-item">
+                            <div class="mda-lng-field">
+                                {{ forms.input(
+                                    'lng',
+                                    'mda_lng',
+                                    class='form-control',
+                                    label_text='Longitude',
+                                    title= 'longitude of a geolocation used in the query',
+                                    value= requestArgs.get('lng',''),
+                                )}}
+
+                            </div>
+                        </div>
+                    </div><!-- Col End /-->
+                </div><!-- Row End /-->
+
+            </div> <!-- Advanced Options End /-->
+        </div>
+    </div>
+</form>

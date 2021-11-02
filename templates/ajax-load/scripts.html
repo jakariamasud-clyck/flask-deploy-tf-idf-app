@@ -1,0 +1,64 @@
+<script>
+    (function ($) {
+        'use strict';
+
+        // Load Ajax Fields
+        $("#mda_search_engine").each(function () {
+            var thatSelect = $(this);
+            if (thatSelect.data('endpoint')) {
+                var ajaxUrl = "https://app.zenserp.com/api/v2/" + thatSelect.data('endpoint') +
+                    "{{ apiKey }}";
+                $.get(ajaxUrl, function (data, status) {
+                    if ('success' == status) {
+                        var addOptions = "";
+                        $.each(data, function (i, val) {
+                            
+                            addOptions += '<option value="'+val+'">'+val+'</option>';
+                        });
+                        thatSelect.html(addOptions);
+
+                        setTimeout(function(){
+                            var urlString, getUrl, search_engine;
+                            urlString = window.location;
+                            getUrl = new URL(urlString);
+                            search_engine = getUrl.searchParams.get("search_engine");
+                            search_engine = search_engine ? search_engine : "google.com";
+                            thatSelect
+                            .find("option[value='"+search_engine+"']")
+                            .prop("selected",true);
+
+                        },300);
+                    }
+                });
+            }
+        });
+
+         // Add AutoComplete
+        $('.autocomplete').each(function () {
+            var thatInput = $(this);
+            var ajaxUrl = "https://app.zenserp.com/api/v2/" + thatInput.data('endpoint') +
+                "{{ apiKey }}&num=20000";
+            $.get(ajaxUrl, function (data, status) {
+                if ('success' == status) {
+                    var allSuggests;
+                    allSuggests = [];
+                    $.each(data, function (i, val) {
+                        var dblset = ['gl', 'hl'],
+                            thatName = thatInput.attr('name');
+                        if ((thatName == 'gl') || (thatName == 'hl')) {
+                            allSuggests.push(val.code + " — " + val.name);
+                        } else {
+                            var dta = val.toString();
+                            dta = dta.split(' ')[0];
+                            allSuggests.push(val);
+                            
+                        }
+
+                    });
+                    autocomplete(document.getElementById(thatInput.attr('id')), allSuggests);
+                }
+            });
+        });
+
+    })(jQuery);
+</script>

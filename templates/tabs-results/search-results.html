@@ -1,0 +1,48 @@
+<!-- Tab Content Item Start \-->
+<div id="searchResults" class="tab-pane fade in active show table-responsive" role="tabpanel">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Search Results</th>
+                <th scope="col">Keywords</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% set count = namespace(value=1) %}
+            {% for srVal in searchResults %}
+            {% if srVal.title and srVal.url %}
+            {% set url = srVal.url %}
+
+            <tr>
+                <!-- Serial Number Start \-->
+                <td>{{ count.value }}</td><!-- Serial Number End /-->
+
+                <!-- Search Result Start \-->
+                <td class="srArea">
+                    <div class="srInner">
+                        <div class="destination">
+                            <cite class="destination">{{ srVal.destination }}</cite>
+                        </div>
+                        <div class="titleDesc">
+                            <a href="{{ url }}" target="_blank">{{ srVal.title }}
+                            </a>
+                            <p>{{ srVal.description }}</p>
+                        </div>
+                    </div>
+                </td><!-- Search Result End /-->
+                <!-- Tf-Idf Start \-->
+                {% if url  %}
+                {% include './tabs-results/sr-content/sr-tf-idf.html' %}
+                {% endif %}
+                <!-- Tf-Idf End /-->
+                
+            </tr>
+            {% set count.value = count.value + 1 %}
+            {% endif %}
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div><!-- Tab Content Item End /-->

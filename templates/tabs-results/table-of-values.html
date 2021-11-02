@@ -1,0 +1,38 @@
+<!-- Tab Content Item Start \-->
+<div id="tableOfValues" role="tabpanel" class="tab-pane fade">
+    
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Keyword</th>
+                <th scope="col">Max TF</th>
+                <th scope="col">Max IDF</th>
+                <th scope="col">Max TF*IDF</th>
+                <th scope="col">AVG TF*IDF</th>
+                <th scope="col">Frequency</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% set addLists = [] %}
+            {% set all_results = results.get_all_results()  %}
+            {% if all_results  %}
+            {% for rskey, rsVal in all_results.items() %}
+            {% if rskey not in addLists and rsVal.tf and rsVal.idf and rsVal.tfidf and rsVal.freq %}
+            <tr class="tbl-row">
+                <td class="key-{{ rskey }}">{{ rskey }}</td>
+                <td class="tf">{{ rsVal.tf }}</td>
+                <td class="idf">{{ rsVal.idf }}</td>
+                <td class="tfidf">{{ rsVal.tfidf }}</td>
+                <td class="avrg_scr">{{ rsVal.avrg_scr }}</td>
+                <td class="freq">{{ rsVal.freq }}</td>
+
+            </tr>
+            {% endif %}
+            {% set addLists = addLists.append(rskey) %}
+            {% endfor %}
+            {% endif %}
+
+        </tbody>
+    </table>
+</div><!-- Tab Content Item End /-->

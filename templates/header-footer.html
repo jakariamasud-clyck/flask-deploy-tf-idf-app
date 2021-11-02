@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>TF-IDF Tool</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/font-awesome.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/autocompate.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/datatables.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/styles.css')}}">
+</head>
+
+<body>
+    <!-- Contents Start /-->
+    {% block body %} {% endblock body %}
+    <!-- Contents end \-->
+
+    <!-- Scripts Start-->
+    <script src="{{ url_for('static', filename='assets/js/jquery.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='assets/js/bootstrap.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='assets/js/autocompate.js')}}"></script>
+    <script src="{{ url_for('static', filename='assets/js/datatables.min.js')}}"></script>
+    {% include './ajax-load/scripts.html' %}
+    <script src="{{ url_for('static', filename='assets/js/scripts.js')}}"></script>
+
+</body>
+   
+</html>

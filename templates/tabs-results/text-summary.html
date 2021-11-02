@@ -1,0 +1,33 @@
+<!-- Tab Content Item Start \-->
+<div id="textsSummary" role="tabpanel" class="tab-pane fade">
+    
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Texts Summary</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% set countS = namespace(value=1) %}
+            
+                {% for stoVal in searchResults %}
+                    {% if stoVal.url %}
+                        
+                        {% set textsSummary = results.get_results(stoVal.url,'summary')  %}
+                            {% if textsSummary  %}
+                            <tr>
+                                <td>{{ countS.value }}</td>
+                                <td>
+                                    <p> {{ textsSummary }}</p>
+                                </td>
+                            </tr>
+                            {% endif %}
+                            {% set countS.value = countS.value + 1 %}
+                    {% endif %}
+                {% endfor %}
+             
+        </tbody>
+    </table>
+</div><!-- Tab Content Item End /-->

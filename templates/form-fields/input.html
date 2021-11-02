@@ -1,0 +1,23 @@
+{% macro input(name, id, class="form-control", label_text='',title='', value='', type='text',required=false, btn=false, endpoint='', hasmin = "1", hasmax = "100") -%}
+
+<label for="{{ id }}"><span>{{ label_text }}</span><i data-toggle="tooltip" data-placement="top" title="{{ title }}"
+        class="fa fa-info-circle"></i></label>
+<div class="d-flex mda-sf-item">
+    <input 
+    type="{{ type }}"
+    id="{{ id }}" 
+    class="{{ class }}"
+    value="{{ value|e }}" 
+    name="{{ name }}" 
+    data-endpoint="{{ endpoint }}"
+    {% if required %} required="required" {% endif %}
+    {% if (type == "number") %} min="{{ hasmin }}" max="{{ hasmax }}" {% endif %}
+    
+    > 
+    {% if btn %}
+        <button id="mda_action" type="submit" class="btn btn-primary"><i class="mr-3 fa fa-search"></i>Search
+        </button>
+    {% endif %}
+        
+</div>
+{%- endmacro %}
